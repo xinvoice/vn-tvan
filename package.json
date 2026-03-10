@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "format": "prettier --write src tests"
   },
   "repository": {
     "type": "git",
@@ -19,10 +22,12 @@
   "homepage": "https://github.com/xinvoice/vn-tvan#readme",
   "devDependencies": {
     "@types/node": "^25.4.0",
+    "@vitest/coverage-v8": "^4.0.18",
     "husky": "^8.0.2",
     "lint-staged": "^13.1.0",
     "prettier": "^2.8.1",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
   },
   "lint-staged": {
     "*.ts": [

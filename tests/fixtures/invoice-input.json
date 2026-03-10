@@ -1,0 +1,70 @@
+{
+  "message_header": {
+    "version": "2.1.0",
+    "sender_code": "V0107001729001",
+    "receiver_code": "TCT",
+    "message_type": 206,
+    "message_id": "V0107001729001F6CA05C0FAD546FCA237A8E930E7CB49",
+    "message_ref_id": "V0107001729001F6CA05C0FAD546FCA237A8E930E7CB49",
+    "tax_id": "0107001729",
+    "quantity": 1
+  },
+  "data": {
+    "invoices": [
+      {
+        "invoice_data": {
+          "general_info": {
+            "version": "2.1.0",
+            "invoice_name": "HÓA ĐƠN GIÁ TRỊ GIA TĂNG",
+            "template_code": "1",
+            "serial_number": "C25MXX",
+            "invoice_number": 12345,
+            "invoice_date": "2025-03-10",
+            "currency": "VND",
+            "payment_method": "TM/CK",
+            "solution_provider_tax_id": "0101234567"
+          },
+          "invoice_content": {
+            "seller": {
+              "name": "Công ty TNHH Giải Pháp Công Nghệ",
+              "tax_id": "0107001729",
+              "address": "Số 15, Phố Đặng Thùy Trâm, Hà Nội"
+            },
+            "buyer": {
+              "name": "Nguyễn Văn A",
+              "tax_id": "0102030405",
+              "address": "Quận Cầu Giấy, Hà Nội"
+            },
+            "items": [
+              {
+                "nature": 1,
+                "line_number": 1,
+                "item_name": "Sản phẩm A",
+                "unit": "Cái",
+                "quantity": 2,
+                "unit_price": 50000,
+                "amount": 100000,
+                "tax_rate": "10%"
+              }
+            ],
+            "tax_summary": {
+              "tax_rates": [
+                {
+                  "tax_rate": "10%",
+                  "amount_before_tax": 100000,
+                  "tax_amount": 10000
+                }
+              ],
+              "total_before_tax": 100000,
+              "total_tax": 10000,
+              "total_amount": 110000,
+              "total_amount_in_words": "Một trăm mười nghìn đồng"
+            }
+          }
+        },
+        "tax_authority_code": "M1-25-A1B2C-00001234567",
+        "qr_code_data": "000201010212..."
+      }
+    ]
+  }
+}

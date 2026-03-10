@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TDiep>
+    <TTChung>
+        <PBan>2.1.0</PBan>
+        <MNGui>V0107001729001</MNGui>
+        <MNNhan>TCT</MNNhan>
+        <MLTDiep>206</MLTDiep>
+        <MTDiep>V0107001729001F6CA05C0FAD546FCA237A8E930E7CB49</MTDiep>
+        <MTDTChieu>V0107001729001F6CA05C0FAD546FCA237A8E930E7CB49</MTDTChieu>
+        <MST>0107001729</MST>
+        <SLuong>1</SLuong>
+    </TTChung>
+    <DLieu>
+        <HDon>
+            <DLHDon>
+                <TTChung>
+                    <PBan>2.1.0</PBan>
+                    <THDon>HÓA ĐƠN GIÁ TRỊ GIA TĂNG</THDon>
+                    <KHMSHDon>1</KHMSHDon>
+                    <KHHDon>C25MXX</KHHDon>
+                    <SHDon>12345</SHDon>
+                    <NLap>2025-03-10</NLap>
+                    <DVTTe>VND</DVTTe>
+                    <HTTToan>TM/CK</HTTToan>
+                    <MSTTCGP>0101234567</MSTTCGP>
+                </TTChung>
+                <NDHDon>
+                    <NBan>
+                        <Ten>Công ty TNHH Giải Pháp Công Nghệ</Ten>
+                        <MST>0107001729</MST>
+                        <DChi>Số 15, Phố Đặng Thùy Trâm, Hà Nội</DChi>
+                    </NBan>
+                    <NMua>
+                        <Ten>Nguyễn Văn A</Ten>
+                        <MST>0102030405</MST>
+                        <DChi>Quận Cầu Giấy, Hà Nội</DChi>
+                    </NMua>
+                    <DSHHDVu>
+                        <HHDVu>
+                            <TChat>1</TChat>
+                            <STT>1</STT>
+                            <THHDVu>Sản phẩm A</THHDVu>
+                            <DVTinh>Cái</DVTinh>
+                            <SLuong>2</SLuong>
+                            <DGia>50000</DGia>
+                            <ThTien>100000</ThTien>
+                            <TSuat>10%</TSuat>
+                        </HHDVu>
+                    </DSHHDVu>
+                    <TToan>
+                        <THTTLTSuat>
+                            <LTSuat>
+                                <TSuat>10%</TSuat>
+                                <ThTien>100000</ThTien>
+                                <TThue>10000</TThue>
+                            </LTSuat>
+                        </THTTLTSuat>
+                        <TgTCThue>100000</TgTCThue>
+                        <TgTThue>10000</TgTThue>
+                        <TgTTTBSo>110000</TgTTTBSo>
+                        <TgTTTBChu>Một trăm mười nghìn đồng</TgTTTBChu>
+                    </TToan>
+                </NDHDon>
+            </DLHDon>
+            <MCCQT>M1-25-A1B2C-00001234567</MCCQT>
+            <DLQRCode>000201010212...</DLQRCode>
+        </HDon>
+    </DLieu>
+</TDiep>
