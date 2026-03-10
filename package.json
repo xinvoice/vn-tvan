@@ -1,0 +1,33 @@
+{
+  "name": "vn-tvan",
+  "version": "1.0.0",
+  "description": "VN TVAN",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xinvoice/vn-tvan.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xinvoice/vn-tvan/issues"
+  },
+  "homepage": "https://github.com/xinvoice/vn-tvan#readme",
+  "devDependencies": {
+    "@types/node": "^25.4.0",
+    "husky": "^8.0.2",
+    "lint-staged": "^13.1.0",
+    "prettier": "^2.8.1",
+    "typescript": "^5.9.3"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
