@@ -1,19 +1,99 @@
-import { MappingSchema } from '../types';
+import { FieldMapping, MappingSchema } from '../types';
+
+/** A single extra-info entry inside <TTKhac>/<TTin> */
+export type OtherInfoItem = {
+  fieldName: string; // <TTruong> — field name
+  dataType: 'string' | 'numeric' | 'date' | 'dateTime'; // <KDLieu> — string | numeric | date | dateTime
+  value: string; // <DLieu>  — actual value
+};
+
+export type Message206Data = {
+  messageHeader: {
+    version: string;
+    senderCode: string;
+    receiverCode: string;
+    messageType: number;
+    messageId: string;
+    messageRefId: string;
+    taxId: string;
+    quantity: number;
+  };
+  data: {
+    invoices: Array<{
+      invoiceData: {
+        generalInfo: {
+          version: string;
+          invoiceName: string;
+          templateCode: string;
+          serialNumber: string;
+          invoiceNumber: number;
+          invoiceDate: string;
+          currency: string;
+          paymentMethod: string;
+          solutionProviderTaxId: string;
+        };
+        invoiceContent: {
+          seller: { name: string; taxId: string; address: string; otherInfo?: OtherInfoItem[] };
+          buyer: { name: string; taxId: string; address: string; otherInfo?: OtherInfoItem[] };
+          items: Array<{
+            nature: number;
+            lineNumber: number;
+            itemName: string;
+            unit: string;
+            quantity: number;
+            unitPrice: number;
+            amount: number;
+            taxRate: string;
+            otherInfo?: OtherInfoItem[];
+          }>;
+          taxSummary: {
+            taxRates: Array<{
+              taxRate: string;
+              amountBeforeTax: number;
+              taxAmount: number;
+            }>;
+            totalBeforeTax: number;
+            totalTax: number;
+            totalAmount: number;
+            totalAmountInWords: string;
+          };
+        };
+        /** Optional business-specific extra fields at invoice level (<TTKhac> inside <DLHDon>) */
+        otherInfo?: OtherInfoItem[];
+      };
+      taxAuthorityCode: string;
+      qrCodeData: string;
+    }>;
+  };
+};
+
+/** Reusable TTKhac ArrayField — maps otherInfo[] to <TTKhac><TTin>...</TTin></TTKhac> */
+const ttKhacField: FieldMapping = {
+  from: 'otherInfo',
+  to: 'TTKhac',
+  array: true as const,
+  itemTag: 'TTin',
+  children: [
+    { from: 'fieldName', to: 'TTruong' },
+    { from: 'dataType', to: 'KDLieu' },
+    { from: 'value', to: 'DLieu' },
+  ],
+};
 
 export const message206Schema: MappingSchema = {
   root: 'TDiep',
   fields: [
     {
-      from: 'message_header',
+      from: 'messageHeader',
       to: 'TTChung',
       children: [
         { from: 'version', to: 'PBan' },
-        { from: 'sender_code', to: 'MNGui' },
-        { from: 'receiver_code', to: 'MNNhan' },
-        { from: 'message_type', to: 'MLTDiep' },
-        { from: 'message_id', to: 'MTDiep' },
-        { from: 'message_ref_id', to: 'MTDTChieu' },
-        { from: 'tax_id', to: 'MST' },
+        { from: 'senderCode', to: 'MNGui' },
+        { from: 'receiverCode', to: 'MNNhan' },
+        { from: 'messageType', to: 'MLTDiep' },
+        { from: 'messageId', to: 'MTDiep' },
+        { from: 'messageRefId', to: 'MTDTChieu' },
+        { from: 'taxId', to: 'MST' },
         { from: 'quantity', to: 'SLuong' },
       ],
     },
@@ -24,26 +104,26 @@ export const message206Schema: MappingSchema = {
       itemTag: 'HDon',
       children: [
         {
-          from: 'invoice_data',
+          from: 'invoiceData',
           to: 'DLHDon',
           children: [
             {
-              from: 'general_info',
+              from: 'generalInfo',
               to: 'TTChung',
               children: [
                 { from: 'version', to: 'PBan' },
-                { from: 'invoice_name', to: 'THDon' },
-                { from: 'template_code', to: 'KHMSHDon' },
-                { from: 'serial_number', to: 'KHHDon' },
-                { from: 'invoice_number', to: 'SHDon' },
-                { from: 'invoice_date', to: 'NLap' },
+                { from: 'invoiceName', to: 'THDon' },
+                { from: 'templateCode', to: 'KHMSHDon' },
+                { from: 'serialNumber', to: 'KHHDon' },
+                { from: 'invoiceNumber', to: 'SHDon' },
+                { from: 'invoiceDate', to: 'NLap' },
                 { from: 'currency', to: 'DVTTe' },
-                { from: 'payment_method', to: 'HTTToan' },
-                { from: 'solution_provider_tax_id', to: 'MSTTCGP' },
+                { from: 'paymentMethod', to: 'HTTToan' },
+                { from: 'solutionProviderTaxId', to: 'MSTTCGP' },
               ],
             },
             {
-              from: 'invoice_content',
+              from: 'invoiceContent',
               to: 'NDHDon',
               children: [
                 {
@@ -51,8 +131,9 @@ export const message206Schema: MappingSchema = {
                   to: 'NBan',
                   children: [
                     { from: 'name', to: 'Ten' },
-                    { from: 'tax_id', to: 'MST' },
+                    { from: 'taxId', to: 'MST' },
                     { from: 'address', to: 'DChi' },
+                    ttKhacField,
                   ],
                 },
                 {
@@ -60,8 +141,9 @@ export const message206Schema: MappingSchema = {
                   to: 'NMua',
                   children: [
                     { from: 'name', to: 'Ten' },
-                    { from: 'tax_id', to: 'MST' },
+                    { from: 'taxId', to: 'MST' },
                     { from: 'address', to: 'DChi' },
+                    ttKhacField,
                   ],
                 },
                 {
@@ -71,42 +153,44 @@ export const message206Schema: MappingSchema = {
                   itemTag: 'HHDVu',
                   children: [
                     { from: 'nature', to: 'TChat' },
-                    { from: 'line_number', to: 'STT' },
-                    { from: 'item_name', to: 'THHDVu' },
+                    { from: 'lineNumber', to: 'STT' },
+                    { from: 'itemName', to: 'THHDVu' },
                     { from: 'unit', to: 'DVTinh' },
                     { from: 'quantity', to: 'SLuong' },
-                    { from: 'unit_price', to: 'DGia' },
+                    { from: 'unitPrice', to: 'DGia' },
                     { from: 'amount', to: 'ThTien' },
-                    { from: 'tax_rate', to: 'TSuat' },
+                    { from: 'taxRate', to: 'TSuat' },
+                    ttKhacField,
                   ],
                 },
                 {
-                  from: 'tax_summary',
+                  from: 'taxSummary',
                   to: 'TToan',
                   children: [
                     {
-                      from: 'tax_rates',
+                      from: 'taxRates',
                       to: 'THTTLTSuat',
                       array: true,
                       itemTag: 'LTSuat',
                       children: [
-                        { from: 'tax_rate', to: 'TSuat' },
-                        { from: 'amount_before_tax', to: 'ThTien' },
-                        { from: 'tax_amount', to: 'TThue' },
+                        { from: 'taxRate', to: 'TSuat' },
+                        { from: 'amountBeforeTax', to: 'ThTien' },
+                        { from: 'taxAmount', to: 'TThue' },
                       ],
                     },
-                    { from: 'total_before_tax', to: 'TgTCThue' },
-                    { from: 'total_tax', to: 'TgTThue' },
-                    { from: 'total_amount', to: 'TgTTTBSo' },
-                    { from: 'total_amount_in_words', to: 'TgTTTBChu' },
+                    { from: 'totalBeforeTax', to: 'TgTCThue' },
+                    { from: 'totalTax', to: 'TgTThue' },
+                    { from: 'totalAmount', to: 'TgTTTBSo' },
+                    { from: 'totalAmountInWords', to: 'TgTTTBChu' },
                   ],
                 },
               ],
             },
+            ttKhacField, // TTKhac at DLHDon level
           ],
         },
-        { from: 'tax_authority_code', to: 'MCCQT' },
-        { from: 'qr_code_data', to: 'DLQRCode' },
+        { from: 'taxAuthorityCode', to: 'MCCQT' },
+        { from: 'qrCodeData', to: 'DLQRCode' },
       ],
     },
   ],

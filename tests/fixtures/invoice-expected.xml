@@ -61,6 +61,18 @@
                         <TgTTTBChu>Một trăm mười nghìn đồng</TgTTTBChu>
                     </TToan>
                 </NDHDon>
+                <TTKhac>
+                    <TTin>
+                        <TTruong>MaKhachHangNoiBo</TTruong>
+                        <KDLieu>string</KDLieu>
+                        <DLieu>KH998877</DLieu>
+                    </TTin>
+                    <TTin>
+                        <TTruong>SoDienThoaiLienHe</TTruong>
+                        <KDLieu>string</KDLieu>
+                        <DLieu>0901234567</DLieu>
+                    </TTin>
+                </TTKhac>
             </DLHDon>
             <MCCQT>M1-25-A1B2C-00001234567</MCCQT>
             <DLQRCode>000201010212...</DLQRCode>

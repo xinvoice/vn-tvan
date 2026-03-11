@@ -3,6 +3,7 @@ import { validateSchema } from './schema-validator';
 import { buildXml } from './xml-builder';
 
 export { message206Schema } from './schemas/message-206';
+export type { Message206Data } from './schemas/message-206';
 export type { MappingSchema, FieldMapping, CreateMessageOptions } from './types';
 export { SchemaError, MappingError } from './types';
 
@@ -13,7 +14,7 @@ export { SchemaError, MappingError } from './types';
  * @param data   - Input JSON object
  * @param opts   - { schema, strict? }
  */
-export function createMessage(data: unknown, opts: CreateMessageOptions) {
+export function createMessage<T = unknown>(data: T, opts: CreateMessageOptions) {
   validateSchema(opts.schema);
   return {
     toXml: () => buildXml(opts.schema, data, { strict: opts.strict })

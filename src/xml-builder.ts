@@ -19,6 +19,7 @@ function buildField(field: FieldMapping, data: unknown, opts: ConvertOptions, de
   // Array field: resolve array, wrap in `to`, iterate items with `itemTag`
   if (field.array) {
     const items = resolvePath(data, field.from);
+    if (items === undefined || items === null) return ''; // optional array — skip
     if (!Array.isArray(items)) {
       throw new MappingError('Expected array value', field.from, field.to);
     }
