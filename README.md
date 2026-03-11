@@ -13,76 +13,96 @@ npm install vn-tvan
 ### Basic Example
 
 ```typescript
-import { createMessage, message206Schema } from 'vn-tvan';
+import { createMessage, message206Schema, Message206Data } from 'vn-tvan';
 
-const data = {
-  message_header: {
+const data: Message206Data = {
+  messageHeader: {
     version: '2.1.0',
-    sender_code: 'V0107001729001',
-    receiver_code: 'TCT',
-    message_type: 206,
-    message_id: 'V0107001729001F6CA05C0FAD546FCA237A8E930E7CB49',
-    message_ref_id: 'V0107001729001F6CA05C0FAD546FCA237A8E930E7CB49',
-    tax_id: '0107001729',
+    senderCode: 'V0107001729001',
+    receiverCode: 'TCT',
+    messageType: 206,
+    messageId: 'V0107001729001F6CA05C0FAD546FCA237A8E930E7CB49',
+    messageRefId: 'V0107001729001F6CA05C0FAD546FCA237A8E930E7CB49',
+    taxId: '0107001729',
     quantity: 1,
   },
   data: {
     invoices: [
       {
-        invoice_data: {
-          general_info: {
+        invoiceData: {
+          generalInfo: {
             version: '2.1.0',
-            invoice_name: 'HÓA ĐƠN GIÁ TRỊ GIA TĂNG',
-            template_code: '1',
-            serial_number: 'C25MXX',
-            invoice_number: 12345,
-            invoice_date: '2025-03-10',
+            invoiceName: 'HÓA ĐƠN GIÁ TRỊ GIA TĂNG',
+            templateCode: '1',
+            serialNumber: 'C25MXX',
+            invoiceNumber: 12345,
+            invoiceDate: '2025-03-10',
             currency: 'VND',
-            payment_method: 'TM/CK',
-            solution_provider_tax_id: '0101234567',
+            paymentMethod: 'TM/CK',
+            solutionProviderTaxId: '0101234567',
           },
-          invoice_content: {
-            seller: {
-              name: 'Công ty TNHH Giải Pháp Công Nghệ',
-              tax_id: '0107001729',
-              address: 'Số 15, Phố Đặng Thùy Trâm, Hà Nội',
-            },
-            buyer: {
-              name: 'Nguyễn Văn A',
-              tax_id: '0102030405',
-              address: 'Quận Cầu Giấy, Hà Nội',
-            },
+          invoiceContent: {
+            seller: { name: 'Công ty TNHH ABC', taxId: '0107001729', address: 'Hà Nội' },
+            buyer: { name: 'Nguyễn Văn A', taxId: '0102030405', address: 'Hà Nội' },
             items: [
               {
                 nature: 1,
-                line_number: 1,
-                item_name: 'Sản phẩm A',
+                lineNumber: 1,
+                itemName: 'Sản phẩm A',
                 unit: 'Cái',
                 quantity: 2,
-                unit_price: 50000,
+                unitPrice: 50000,
                 amount: 100000,
-                tax_rate: '10%',
+                taxRate: '10%',
               },
             ],
-            tax_summary: {
-              tax_rates: [{ tax_rate: '10%', amount_before_tax: 100000, tax_amount: 10000 }],
-              total_before_tax: 100000,
-              total_tax: 10000,
-              total_amount: 110000,
-              total_amount_in_words: 'Một trăm mười nghìn đồng',
+            taxSummary: {
+              taxRates: [{ taxRate: '10%', amountBeforeTax: 100000, taxAmount: 10000 }],
+              totalBeforeTax: 100000,
+              totalTax: 10000,
+              totalAmount: 110000,
+              totalAmountInWords: 'Một trăm mười nghìn đồng',
             },
           },
         },
-        tax_authority_code: 'MCCQT123',
-        qr_code_data: 'QR_DATA',
+        taxAuthorityCode: 'M1-25-A1B2C-00001234567',
+        qrCodeData: '000201...',
       },
     ],
   },
 };
 
-const xml = createMessage(data, { schema: message206Schema }).toXml();
+const xml = createMessage<Message206Data>(data, { schema: message206Schema }).toXml();
 console.log(xml);
 ```
+
+### Business-specific Extra Fields (TTKhac)
+
+Message 206 supports an optional `otherInfo` field at multiple levels (`invoiceData`, `seller`, `buyer`, each item) for business-specific data not in the GDT standard structure. These are rendered as `<TTKhac>` in the output XML.
+
+```typescript
+invoiceData: {
+  // ...generalInfo, invoiceContent...
+  otherInfo: [
+    { fieldName: 'MaKhachHangNoiBo', dataType: 'string', value: 'KH998877' },
+    { fieldName: 'NgayHopDong',      dataType: 'date',   value: '2025-01-15' },
+  ],
+}
+```
+
+Each entry maps to:
+
+```xml
+<TTKhac>
+  <TTin>
+    <TTruong>MaKhachHangNoiBo</TTruong>
+    <KDLieu>string</KDLieu>
+    <DLieu>KH998877</DLieu>
+  </TTin>
+</TTKhac>
+```
+
+> **Constraints:** `otherInfo` is optional. When omitted, `<TTKhac>` is not rendered. Total serialized content must not exceed 500 characters (GDT requirement).
 
 ### Strict Mode
 
@@ -167,6 +187,16 @@ Three variants:
 ```typescript
 { from: 'json.array', to: 'WrapperTag', array: true, itemTag: 'ItemTag', children: [...] }
 ```
+
+### `OtherInfoItem`
+
+Extra-info entry used in the optional `otherInfo` array (renders as `<TTKhac><TTin>` in XML):
+
+| Field       | Type                                         | Description              |
+| ----------- | -------------------------------------------- | ------------------------ |
+| `fieldName` | `string`                                     | Field name (`<TTruong>`) |
+| `dataType`  | `'string' \| 'numeric' \| 'date' \| 'dateTime'` | Data type (`<KDLieu>`)   |
+| `value`     | `string`                                     | Value (`<DLieu>`)        |
 
 ### Built-in Schemas
 
