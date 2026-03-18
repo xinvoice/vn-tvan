@@ -1,0 +1,73 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write # needed to create GitHub releases
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history required for changelog generation
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          registry-url: https://registry.npmjs.org
+
+      - run: npm ci
+
+      - name: Detect release type
+        id: type
+        run: |
+          TAG="${{ github.ref_name }}"
+          if [[ "$TAG" =~ -beta ]]; then
+            echo "dist_tag=beta" >> $GITHUB_OUTPUT
+            echo "prerelease=true" >> $GITHUB_OUTPUT
+          elif [[ "$TAG" =~ -alpha ]]; then
+            echo "dist_tag=alpha" >> $GITHUB_OUTPUT
+            echo "prerelease=true" >> $GITHUB_OUTPUT
+          elif [[ "$TAG" =~ -rc ]]; then
+            echo "dist_tag=next" >> $GITHUB_OUTPUT
+            echo "prerelease=true" >> $GITHUB_OUTPUT
+          else
+            echo "dist_tag=latest" >> $GITHUB_OUTPUT
+            echo "prerelease=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Generate changelog
+        run: |
+          # Prepend latest release entry into existing CHANGELOG.md (-i/-s = in-place update)
+          npx conventional-changelog-cli -p angular -i CHANGELOG.md -s
+          # Extract latest release section for the GitHub Release body
+          npx conventional-changelog-cli -p angular -r 1 -o CHANGELOG_RELEASE.md
+
+      - name: Commit changelog to repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add CHANGELOG.md
+          git diff --cached --quiet || git commit -m "docs: update CHANGELOG.md for ${{ github.ref_name }}"
+          git push origin HEAD:main
+
+      - name: Build
+        run: npm run build
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          body_path: CHANGELOG_RELEASE.md
+          prerelease: ${{ steps.type.outputs.prerelease }}
+          generate_release_notes: false
+
+      - name: Publish to npm
+        run: npm publish --tag ${{ steps.type.outputs.dist_tag }} --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,0 +1,12 @@
+src/
+tests/
+plans/
+docs/
+.github/
+.husky/
+*.test.ts
+tsconfig.json
+eslint.config.*
+.prettierrc*
+vitest.config*
+CHANGELOG_RELEASE.md

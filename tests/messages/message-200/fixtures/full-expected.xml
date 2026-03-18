@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TDiep>
+    <TTChung>
+        <PBan>2.1.0</PBan>
+        <MNGui>V0316794479</MNGui>
+        <MNNhan>TCT</MNNhan>
+        <MLTDiep>200</MLTDiep>
+        <MTDiep>V0316794479AABBCCDD112233445566778899AABBCCDD1122</MTDiep>
+        <MTDTChieu>V0316794479AABBCCDD112233445566778899AABBCCDD1122</MTDTChieu>
+        <MST>0316794479</MST>
+        <SLuong>1</SLuong>
+    </TTChung>
+    <DLieu>
+        <HDon>
+            <MCCQT>CQT-2026-ABC-0001234567890123</MCCQT>
+            <DLHDon>
+                <TTChung>
+                    <PBan>2.1.0</PBan>
+                    <THDon>HÓA ĐƠN GIÁ TRỊ GIA TĂNG</THDon>
+                    <KHMSHDon>1</KHMSHDon>
+                    <KHHDon>C25TXX</KHHDon>
+                    <SHDon>42</SHDon>
+                    <NLap>2026-03-18</NLap>
+                    <HDCTTChinh>1</HDCTTChinh>
+                    <DVTTe>VND</DVTTe>
+                    <HTTToan>CK</HTTToan>
+                    <MSTTCGP>0316794479</MSTTCGP>
+                    <TTHDLQuan>
+                        <TCHDon>2</TCHDon>
+                        <NLHDCLQuan>2026-01-01</NLHDCLQuan>
+                        <GChu>Điều chỉnh</GChu>
+                    </TTHDLQuan>
+                </TTChung>
+                <NDHDon>
+                    <NBan>
+                        <Ten>Công ty TNHH Giải Pháp</Ten>
+                        <MST>0316794479</MST>
+                        <DChi>Hà Nội</DChi>
+                        <SDThoai>0243001234</SDThoai>
+                        <DCTDTu>info@giaiphap.vn</DCTDTu>
+                        <STKNHang>1234567890</STKNHang>
+                        <TNHang>Vietcombank</TNHang>
+                    </NBan>
+                    <NMua>
+                        <Ten>Nguyễn Văn A</Ten>
+                        <MST>0102030405</MST>
+                        <DChi>TP.HCM</DChi>
+                        <DCTDTu>buyer@example.com</DCTDTu>
+                    </NMua>
+                    <DSHHDVu>
+                        <HHDVu>
+                            <TChat>1</TChat>
+                            <STT>1</STT>
+                            <MHHDVu>DV001</MHHDVu>
+                            <THHDVu>Dịch vụ tư vấn</THHDVu>
+                            <DVTinh>lần</DVTinh>
+                            <SLuong>2</SLuong>
+                            <DGia>500000</DGia>
+                            <ThTien>1000000</ThTien>
+                            <TSuat>10%</TSuat>
+                            <TLCKhau>5</TLCKhau>
+                            <STCKhau>50000</STCKhau>
+                        </HHDVu>
+                    </DSHHDVu>
+                    <TToan>
+                        <THTTLTSuat>
+                            <LTSuat>
+                                <TSuat>10%</TSuat>
+                                <ThTien>950000</ThTien>
+                                <TThue>95000</TThue>
+                            </LTSuat>
+                        </THTTLTSuat>
+                        <TgTCThue>950000</TgTCThue>
+                        <TgTThue>95000</TgTThue>
+                        <DSLPhi>
+                            <LPhi>
+                                <TenPhi>Phí vận chuyển</TenPhi>
+                                <GTriPhi>50000</GTriPhi>
+                            </LPhi>
+                        </DSLPhi>
+                        <TTCKTMai>50000</TTCKTMai>
+                        <TgTTTBSo>1045000</TgTTTBSo>
+                        <TgTTTBChu>Một triệu không trăm bốn mươi lăm nghìn đồng</TgTTTBChu>
+                    </TToan>
+                </NDHDon>
+                <TTKhac>
+                    <TTin>
+                        <TTruong>CheckingCode</TTruong>
+                        <KDLieu>string</KDLieu>
+                        <DLieu>ABCD1234</DLieu>
+                    </TTin>
+                </TTKhac>
+            </DLHDon>
+            <DLQRCode>qr-data-string</DLQRCode>
+        </HDon>
+    </DLieu>
+</TDiep>
