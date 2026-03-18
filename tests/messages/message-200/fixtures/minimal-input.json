@@ -1,0 +1,61 @@
+{
+  "messageHeader": {
+    "version": "2.1.0",
+    "senderCode": "V0316794479",
+    "receiverCode": "TCT",
+    "messageType": 200,
+    "messageId": "V0316794479AABBCCDD112233445566778899AABBCCDD1122",
+    "messageRefId": "V0316794479AABBCCDD112233445566778899AABBCCDD1122",
+    "taxId": "0316794479",
+    "quantity": 1
+  },
+  "data": {
+    "invoice": {
+      "invoiceData": {
+        "generalInfo": {
+          "version": "2.1.0",
+          "invoiceName": "HÓA ĐƠN GIÁ TRỊ GIA TĂNG",
+          "templateCode": "1",
+          "serialNumber": "C25TXX",
+          "invoiceNumber": 1,
+          "invoiceDate": "2026-03-18",
+          "financialLeaseFlag": 0,
+          "currency": "VND",
+          "paymentMethod": "TM/CK",
+          "solutionProviderTaxId": "0316794479"
+        },
+        "invoiceContent": {
+          "seller": {
+            "name": "Công ty TNHH Giải Pháp",
+            "taxId": "0316794479",
+            "address": "Hà Nội"
+          },
+          "buyer": {
+            "name": "Nguyễn Văn A",
+            "taxId": "0102030405",
+            "address": "TP.HCM"
+          },
+          "items": [
+            {
+              "nature": 1,
+              "lineNumber": 1,
+              "itemName": "Dịch vụ tư vấn",
+              "unit": "lần",
+              "quantity": 1,
+              "unitPrice": 1000000,
+              "amount": 1000000,
+              "taxRate": "10%"
+            }
+          ],
+          "taxSummary": {
+            "taxRates": [{ "taxRate": "10%", "amountBeforeTax": 1000000, "taxAmount": 100000 }],
+            "totalBeforeTax": 1000000,
+            "totalTax": 100000,
+            "totalAmount": 1100000,
+            "totalAmountInWords": "Một triệu một trăm nghìn đồng"
+          }
+        }
+      }
+    }
+  }
+}

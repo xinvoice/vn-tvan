@@ -1,0 +1,74 @@
+{
+  "messageHeader": {
+    "version": "2.1.0",
+    "senderCode": "V0107001729001",
+    "receiverCode": "TCT",
+    "messageType": 206,
+    "messageId": "V0107001729001F6CA05C0FAD546FCA237A8E930E7CB49",
+    "messageRefId": "V0107001729001F6CA05C0FAD546FCA237A8E930E7CB49",
+    "taxId": "0107001729",
+    "quantity": 1
+  },
+  "data": {
+    "invoices": [
+      {
+        "invoiceData": {
+          "generalInfo": {
+            "version": "2.1.0",
+            "invoiceName": "HÓA ĐƠN GIÁ TRỊ GIA TĂNG",
+            "templateCode": "1",
+            "serialNumber": "C25MXX",
+            "invoiceNumber": 12345,
+            "invoiceDate": "2025-03-10",
+            "currency": "VND",
+            "paymentMethod": "TM/CK",
+            "solutionProviderTaxId": "0101234567"
+          },
+          "otherInfo": [
+            { "fieldName": "MaKhachHangNoiBo", "dataType": "string", "value": "KH998877" },
+            { "fieldName": "SoDienThoaiLienHe", "dataType": "string", "value": "0901234567" }
+          ],
+          "invoiceContent": {
+            "seller": {
+              "name": "Công ty TNHH Giải Pháp Công Nghệ",
+              "taxId": "0107001729",
+              "address": "Số 15, Phố Đặng Thùy Trâm, Hà Nội"
+            },
+            "buyer": {
+              "name": "Nguyễn Văn A",
+              "taxId": "0102030405",
+              "address": "Quận Cầu Giấy, Hà Nội"
+            },
+            "items": [
+              {
+                "nature": 1,
+                "lineNumber": 1,
+                "itemName": "Sản phẩm A",
+                "unit": "Cái",
+                "quantity": 2,
+                "unitPrice": 50000,
+                "amount": 100000,
+                "taxRate": "10%"
+              }
+            ],
+            "taxSummary": {
+              "taxRates": [
+                {
+                  "taxRate": "10%",
+                  "amountBeforeTax": 100000,
+                  "taxAmount": 10000
+                }
+              ],
+              "totalBeforeTax": 100000,
+              "totalTax": 10000,
+              "totalAmount": 110000,
+              "totalAmountInWords": "Một trăm mười nghìn đồng"
+            }
+          }
+        },
+        "taxAuthorityCode": "M1-25-A1B2C-00001234567",
+        "qrCodeData": "000201010212..."
+      }
+    ]
+  }
+}
