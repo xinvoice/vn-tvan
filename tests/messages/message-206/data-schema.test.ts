@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { message206DataSchema } from '../../src/schemas/message-206';
+import { message206DataSchema } from '../../../src/messages/message-206';
 
 // Minimal valid payload — reused across tests
 const validPayload = {
@@ -75,9 +75,7 @@ describe('message206DataSchema', () => {
   });
 
   it('rejects invalid taxId (too short)', () => {
-    const result = message206DataSchema.safeParse(
-      withOverride(['messageHeader', 'taxId'], '12345')
-    );
+    const result = message206DataSchema.safeParse(withOverride(['messageHeader', 'taxId'], '12345'));
     expect(result.success).toBe(false);
     if (!result.success) {
       expect(result.error.issues[0].message).toMatch(/10/);
@@ -85,9 +83,7 @@ describe('message206DataSchema', () => {
   });
 
   it('rejects invalid taxId (non-digits)', () => {
-    const result = message206DataSchema.safeParse(
-      withOverride(['messageHeader', 'taxId'], 'ABCD123456')
-    );
+    const result = message206DataSchema.safeParse(withOverride(['messageHeader', 'taxId'], 'ABCD123456'));
     expect(result.success).toBe(false);
   });
 
@@ -106,16 +102,14 @@ describe('message206DataSchema', () => {
               },
             },
           },
-        ]
-      )
+        ],
+      ),
     );
     expect(result.success).toBe(false);
   });
 
   it('rejects messageType !== 206', () => {
-    const result = message206DataSchema.safeParse(
-      withOverride(['messageHeader', 'messageType'], 207)
-    );
+    const result = message206DataSchema.safeParse(withOverride(['messageHeader', 'messageType'], 207));
     expect(result.success).toBe(false);
   });
 
@@ -134,8 +128,8 @@ describe('message206DataSchema', () => {
               },
             },
           },
-        ]
-      )
+        ],
+      ),
     );
     expect(result.success).toBe(false);
   });
@@ -158,8 +152,8 @@ describe('message206DataSchema', () => {
               },
             },
           },
-        ]
-      )
+        ],
+      ),
     );
     expect(result.success).toBe(false);
   });
@@ -177,8 +171,8 @@ describe('message206DataSchema', () => {
               otherInfo: [{ fieldName: 'field', dataType: 'string', value: bigValue }],
             },
           },
-        ]
-      )
+        ],
+      ),
     );
     expect(result.success).toBe(false);
   });
@@ -195,8 +189,8 @@ describe('message206DataSchema', () => {
               otherInfo: [{ fieldName: 'f', dataType: 'string', value: 'v' }],
             },
           },
-        ]
-      )
+        ],
+      ),
     );
     expect(result.success).toBe(true);
   });

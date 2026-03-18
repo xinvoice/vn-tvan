@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { message200DataSchema } from '../../src/schemas/message-200-zod-schemas';
+import { message200DataSchema } from '../../../src/messages/message-200';
 
 // Minimal valid payload — reused across tests
 const validPayload = {
@@ -70,23 +70,17 @@ describe('message200DataSchema', () => {
   });
 
   it('rejects messageType !== 200', () => {
-    const result = message200DataSchema.safeParse(
-      withOverride(['messageHeader', 'messageType'], 206)
-    );
+    const result = message200DataSchema.safeParse(withOverride(['messageHeader', 'messageType'], 206));
     expect(result.success).toBe(false);
   });
 
   it('rejects quantity !== 1', () => {
-    const result = message200DataSchema.safeParse(
-      withOverride(['messageHeader', 'quantity'], 2)
-    );
+    const result = message200DataSchema.safeParse(withOverride(['messageHeader', 'quantity'], 2));
     expect(result.success).toBe(false);
   });
 
   it('rejects invalid taxId (too short)', () => {
-    const result = message200DataSchema.safeParse(
-      withOverride(['messageHeader', 'taxId'], '12345')
-    );
+    const result = message200DataSchema.safeParse(withOverride(['messageHeader', 'taxId'], '12345'));
     expect(result.success).toBe(false);
     if (!result.success) expect(result.error.issues[0].message).toMatch(/10/);
   });
@@ -112,9 +106,7 @@ describe('message200DataSchema', () => {
 
   it('rejects otherInfo exceeding 500 chars when serialized', () => {
     const copy = JSON.parse(JSON.stringify(validPayload));
-    copy.data.invoice.invoiceData.otherInfo = [
-      { fieldName: 'f', dataType: 'string', value: 'x'.repeat(500) },
-    ];
+    copy.data.invoice.invoiceData.otherInfo = [{ fieldName: 'f', dataType: 'string', value: 'x'.repeat(500) }];
     expect(message200DataSchema.safeParse(copy).success).toBe(false);
   });
 

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { resolvePath, resolveRequired } from '../../src/path-resolver';
-import { MappingError } from '../../src/types';
+import { resolvePath, resolveRequired } from '../../src/core/path-resolver';
+import { MappingError } from '../../src/core/types';
 
 describe('resolvePath', () => {
   it('resolves simple key', () => {

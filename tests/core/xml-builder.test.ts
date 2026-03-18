@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { buildXml } from '../../src/xml-builder';
-import { MappingSchema, SchemaError } from '../../src/types';
-import { validateSchema } from '../../src/schema-validator';
+import { buildXml } from '../../src/core/xml-builder';
+import { MappingSchema, SchemaError } from '../../src/core/types';
+import { validateSchema } from '../../src/core/schema-validator';
 
 describe('buildXml — leaf fields', () => {
   const schema: MappingSchema = {

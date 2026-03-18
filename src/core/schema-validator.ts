@@ -28,7 +28,7 @@ const fieldMappingSchema: z.ZodType = z.lazy(() =>
           ctx.addIssue({ code: 'custom', message: 'object fields with children require a "from" path' });
         }
       }
-    })
+    }),
 );
 
 const mappingSchemaValidator = z.object({

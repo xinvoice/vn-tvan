@@ -71,9 +71,7 @@
             "totalCommercialDiscount": 50000
           }
         },
-        "otherInfo": [
-          { "fieldName": "CheckingCode", "dataType": "string", "value": "ABCD1234" }
-        ]
+        "otherInfo": [{ "fieldName": "CheckingCode", "dataType": "string", "value": "ABCD1234" }]
       },
       "qrCodeData": "qr-data-string"
     }

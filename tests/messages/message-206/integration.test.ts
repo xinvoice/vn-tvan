@@ -7,11 +7,11 @@ import {
   message206DataSchema,
   Message206Data,
   ValidationError,
-} from '../../src/index';
+} from '../../../src/index';
 
-const fixturesDir = join(__dirname, '../fixtures');
-const jsonInput = JSON.parse(readFileSync(join(fixturesDir, 'invoice-input.json'), 'utf-8'));
-const expectedXml = readFileSync(join(fixturesDir, 'invoice-expected.xml'), 'utf-8').trim();
+const fixturesDir = join(__dirname, 'fixtures');
+const jsonInput = JSON.parse(readFileSync(join(fixturesDir, 'input.json'), 'utf-8'));
+const expectedXml = readFileSync(join(fixturesDir, 'expected.xml'), 'utf-8').trim();
 
 describe('invoice206Schema — full conversion', () => {
   it('converts GDT invoice JSON to correct XML', () => {
@@ -39,17 +39,15 @@ describe('invoice206Schema — Zod validation', () => {
   it('throws ValidationError for invalid data when validate is provided', () => {
     const invalid = JSON.parse(JSON.stringify(jsonInput));
     invalid.messageHeader.taxId = 'BAD';
-    expect(() =>
-      createMessage(invalid, { schema: message206Schema, validate: message206DataSchema })
-    ).toThrow(ValidationError);
+    expect(() => createMessage(invalid, { schema: message206Schema, validate: message206DataSchema })).toThrow(
+      ValidationError,
+    );
   });
 
   it('does not throw for invalid data when validate is absent', () => {
     const invalid = JSON.parse(JSON.stringify(jsonInput));
     invalid.messageHeader.taxId = 'BAD';
-    expect(() =>
-      createMessage(invalid, { schema: message206Schema })
-    ).not.toThrow();
+    expect(() => createMessage(invalid, { schema: message206Schema })).not.toThrow();
   });
 
   it('ValidationError message lists the failing field path', () => {

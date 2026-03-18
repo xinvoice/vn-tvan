@@ -1,24 +1,9 @@
-import { FieldMapping, MappingSchema } from '../types';
-
-export { message200DataSchema } from './message-200-zod-schemas';
-export type { Message200Data } from './message-200-zod-schemas';
+import { MappingSchema } from '../../core/types';
+import { ttKhacField } from '../shared-fields';
 
 // ---------------------------------------------------------------------------
 // Mapping schema — JSON-to-XML field mapping for GDT message type 200
 // ---------------------------------------------------------------------------
-
-/** Reusable TTKhac ArrayField — maps otherInfo[] to <TTKhac><TTin>...</TTin></TTKhac> */
-const ttKhacField: FieldMapping = {
-  from: 'otherInfo',
-  to: 'TTKhac',
-  array: true as const,
-  itemTag: 'TTin',
-  children: [
-    { from: 'fieldName', to: 'TTruong' },
-    { from: 'dataType', to: 'KDLieu' },
-    { from: 'value', to: 'DLieu' },
-  ],
-};
 
 export const message200Schema: MappingSchema = {
   root: 'TDiep',

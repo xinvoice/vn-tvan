@@ -7,13 +7,13 @@ import {
   message200DataSchema,
   Message200Data,
   ValidationError,
-} from '../../src/index';
+} from '../../../src/index';
 
-const fixturesDir = join(__dirname, '../fixtures');
-const minimalInput = JSON.parse(readFileSync(join(fixturesDir, 'message-200-minimal-input.json'), 'utf-8'));
-const minimalExpected = readFileSync(join(fixturesDir, 'message-200-minimal-expected.xml'), 'utf-8').trim();
-const fullInput = JSON.parse(readFileSync(join(fixturesDir, 'message-200-full-input.json'), 'utf-8'));
-const fullExpected = readFileSync(join(fixturesDir, 'message-200-full-expected.xml'), 'utf-8').trim();
+const fixturesDir = join(__dirname, 'fixtures');
+const minimalInput = JSON.parse(readFileSync(join(fixturesDir, 'minimal-input.json'), 'utf-8'));
+const minimalExpected = readFileSync(join(fixturesDir, 'minimal-expected.xml'), 'utf-8').trim();
+const fullInput = JSON.parse(readFileSync(join(fixturesDir, 'full-input.json'), 'utf-8'));
+const fullExpected = readFileSync(join(fixturesDir, 'full-expected.xml'), 'utf-8').trim();
 
 describe('message200Schema — minimal conversion', () => {
   it('converts minimal TD200 JSON to correct XML', () => {
@@ -95,9 +95,9 @@ describe('message200Schema — Zod validation', () => {
   it('throws ValidationError when messageType is not 200', () => {
     const invalid = JSON.parse(JSON.stringify(minimalInput));
     invalid.messageHeader.messageType = 206;
-    expect(() =>
-      createMessage(invalid, { schema: message200Schema, validate: message200DataSchema })
-    ).toThrow(ValidationError);
+    expect(() => createMessage(invalid, { schema: message200Schema, validate: message200DataSchema })).toThrow(
+      ValidationError,
+    );
   });
 
   it('ValidationError message lists the failing field path', () => {

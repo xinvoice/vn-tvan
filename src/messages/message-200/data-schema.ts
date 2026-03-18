@@ -1,26 +1,8 @@
 import { z } from 'zod';
+import { taxIdSchema, isoDateSchema, otherInfoSchema } from '../shared-fields';
 
 // ---------------------------------------------------------------------------
-// Reusable primitives (copied from message-206 — no shared module yet)
-// ---------------------------------------------------------------------------
-
-const taxIdSchema = z.string().regex(/^\d{10,13}$/, 'Tax ID must be 10–13 digits');
-const isoDateSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Date must be YYYY-MM-DD');
-
-const otherInfoItemSchema = z.object({
-  fieldName: z.string().min(1),
-  dataType: z.enum(['string', 'numeric', 'date', 'dateTime']),
-  value: z.string(),
-});
-
-const otherInfoSchema = z
-  .array(otherInfoItemSchema)
-  .refine((items) => JSON.stringify(items).length <= 500, {
-    message: 'otherInfo serialized content exceeds 500-character GDT limit',
-  });
-
-// ---------------------------------------------------------------------------
-// TD200-specific schemas
+// TD200-specific Zod schemas
 // ---------------------------------------------------------------------------
 
 const linkedInvoiceSchema = z.object({
@@ -88,7 +70,7 @@ const taxSummarySchema = z.object({
         taxRate: z.string().min(1),
         amountBeforeTax: z.number().nonnegative(),
         taxAmount: z.number().nonnegative(),
-      })
+      }),
     )
     .min(1),
   totalBeforeTax: z.number().nonnegative(),
