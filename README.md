@@ -192,11 +192,11 @@ Three variants:
 
 Extra-info entry used in the optional `otherInfo` array (renders as `<TTKhac><TTin>` in XML):
 
-| Field       | Type                                         | Description              |
-| ----------- | -------------------------------------------- | ------------------------ |
-| `fieldName` | `string`                                     | Field name (`<TTruong>`) |
+| Field       | Type                                            | Description              |
+| ----------- | ----------------------------------------------- | ------------------------ |
+| `fieldName` | `string`                                        | Field name (`<TTruong>`) |
 | `dataType`  | `'string' \| 'numeric' \| 'date' \| 'dateTime'` | Data type (`<KDLieu>`)   |
-| `value`     | `string`                                     | Value (`<DLieu>`)        |
+| `value`     | `string`                                        | Value (`<DLieu>`)        |
 
 ### Built-in Schemas
 

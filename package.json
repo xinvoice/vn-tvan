@@ -34,5 +34,8 @@
       "prettier --write",
       "git add"
     ]
+  },
+  "dependencies": {
+    "zod": "^4.3.6"
   }
 }

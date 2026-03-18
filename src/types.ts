@@ -1,3 +1,5 @@
+import type { ZodType } from 'zod';
+
 /** Options passed to convert() */
 export type ConvertOptions = {
   strict?: boolean; // throw on missing required fields (default: false)
@@ -43,6 +45,8 @@ export type MappingSchema = {
 export type CreateMessageOptions = {
   schema: MappingSchema;
   strict?: boolean;
+  /** Optional Zod schema for runtime data validation before XML build */
+  validate?: ZodType;
 };
 
 /** Custom error types */
@@ -57,5 +61,12 @@ export class MappingError extends Error {
   constructor(message: string, public readonly path: string, public readonly xmlTarget: string) {
     super(`[MappingError] <${xmlTarget}> ${message} (source: "${path}")`);
     this.name = 'MappingError';
+  }
+}
+
+export class ValidationError extends Error {
+  constructor(message: string, public readonly issues: unknown[]) {
+    super(`[ValidationError] ${message}`);
+    this.name = 'ValidationError';
   }
 }
