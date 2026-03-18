@@ -70,6 +70,85 @@ describe('buildXml — array field', () => {
   });
 });
 
+describe('buildXml — omitIfEmpty leaf', () => {
+  it('omits leaf tag when value is absent and omitIfEmpty is set', () => {
+    const schema: MappingSchema = {
+      root: 'Root',
+      fields: [{ from: 'code', to: 'MCCQT', omitIfEmpty: true }],
+    };
+    const result = buildXml(schema, {});
+    expect(result).not.toContain('MCCQT');
+  });
+
+  it('renders leaf tag when value is present even with omitIfEmpty', () => {
+    const schema: MappingSchema = {
+      root: 'Root',
+      fields: [{ from: 'code', to: 'MCCQT', omitIfEmpty: true }],
+    };
+    const result = buildXml(schema, { code: 'ABC123' });
+    expect(result).toContain('<MCCQT>ABC123</MCCQT>');
+  });
+
+  it('still emits empty tag when omitIfEmpty is NOT set (regression)', () => {
+    const schema: MappingSchema = {
+      root: 'Root',
+      fields: [{ from: 'code', to: 'MCCQT' }],
+    };
+    const result = buildXml(schema, {});
+    expect(result).toContain('<MCCQT/>');
+  });
+});
+
+describe('buildXml — omitIfEmpty object', () => {
+  it('omits wrapper when source object is absent and omitIfEmpty is set', () => {
+    const schema: MappingSchema = {
+      root: 'Root',
+      fields: [
+        {
+          from: 'linkedInvoice',
+          to: 'TTHDLQuan',
+          omitIfEmpty: true,
+          children: [{ from: 'type', to: 'TCHDon' }],
+        },
+      ],
+    };
+    const result = buildXml(schema, {});
+    expect(result).not.toContain('TTHDLQuan');
+  });
+
+  it('renders wrapper when source object is present', () => {
+    const schema: MappingSchema = {
+      root: 'Root',
+      fields: [
+        {
+          from: 'linkedInvoice',
+          to: 'TTHDLQuan',
+          omitIfEmpty: true,
+          children: [{ from: 'type', to: 'TCHDon' }],
+        },
+      ],
+    };
+    const result = buildXml(schema, { linkedInvoice: { type: 1 } });
+    expect(result).toContain('<TTHDLQuan>');
+    expect(result).toContain('<TCHDon>1</TCHDon>');
+  });
+
+  it('still renders empty wrapper when omitIfEmpty is NOT set (regression)', () => {
+    const schema: MappingSchema = {
+      root: 'Root',
+      fields: [
+        {
+          from: 'linked',
+          to: 'TTHDLQuan',
+          children: [{ from: 'type', to: 'TCHDon' }],
+        },
+      ],
+    };
+    const result = buildXml(schema, {});
+    expect(result).toContain('<TTHDLQuan>');
+  });
+});
+
 describe('validateSchema', () => {
   it('throws SchemaError when root is missing', () => {
     expect(() => validateSchema({ root: '', fields: [] })).toThrow(SchemaError);

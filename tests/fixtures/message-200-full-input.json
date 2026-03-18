@@ -1,0 +1,81 @@
+{
+  "messageHeader": {
+    "version": "2.1.0",
+    "senderCode": "V0316794479",
+    "receiverCode": "TCT",
+    "messageType": 200,
+    "messageId": "V0316794479AABBCCDD112233445566778899AABBCCDD1122",
+    "messageRefId": "V0316794479AABBCCDD112233445566778899AABBCCDD1122",
+    "taxId": "0316794479",
+    "quantity": 1
+  },
+  "data": {
+    "invoice": {
+      "taxAuthorityCode": "CQT-2026-ABC-0001234567890123",
+      "invoiceData": {
+        "generalInfo": {
+          "version": "2.1.0",
+          "invoiceName": "HÓA ĐƠN GIÁ TRỊ GIA TĂNG",
+          "templateCode": "1",
+          "serialNumber": "C25TXX",
+          "invoiceNumber": 42,
+          "invoiceDate": "2026-03-18",
+          "financialLeaseFlag": 1,
+          "currency": "VND",
+          "paymentMethod": "CK",
+          "solutionProviderTaxId": "0316794479",
+          "linkedInvoice": {
+            "type": 2,
+            "linkedInvoiceDate": "2026-01-01",
+            "notes": "Điều chỉnh"
+          }
+        },
+        "invoiceContent": {
+          "seller": {
+            "name": "Công ty TNHH Giải Pháp",
+            "taxId": "0316794479",
+            "address": "Hà Nội",
+            "phone": "0243001234",
+            "email": "info@giaiphap.vn",
+            "bankAccount": "1234567890",
+            "bankName": "Vietcombank"
+          },
+          "buyer": {
+            "name": "Nguyễn Văn A",
+            "taxId": "0102030405",
+            "address": "TP.HCM",
+            "email": "buyer@example.com"
+          },
+          "items": [
+            {
+              "nature": 1,
+              "lineNumber": 1,
+              "itemCode": "DV001",
+              "itemName": "Dịch vụ tư vấn",
+              "unit": "lần",
+              "quantity": 2,
+              "unitPrice": 500000,
+              "amount": 1000000,
+              "taxRate": "10%",
+              "discountRate": 5,
+              "discountAmount": 50000
+            }
+          ],
+          "taxSummary": {
+            "taxRates": [{ "taxRate": "10%", "amountBeforeTax": 950000, "taxAmount": 95000 }],
+            "totalBeforeTax": 950000,
+            "totalTax": 95000,
+            "totalAmount": 1045000,
+            "totalAmountInWords": "Một triệu không trăm bốn mươi lăm nghìn đồng",
+            "fees": [{ "feeName": "Phí vận chuyển", "feeAmount": 50000 }],
+            "totalCommercialDiscount": 50000
+          }
+        },
+        "otherInfo": [
+          { "fieldName": "CheckingCode", "dataType": "string", "value": "ABCD1234" }
+        ]
+      },
+      "qrCodeData": "qr-data-string"
+    }
+  }
+}

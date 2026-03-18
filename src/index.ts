@@ -4,6 +4,8 @@ import { buildXml } from './xml-builder';
 
 export { message206Schema, message206DataSchema } from './schemas/message-206';
 export type { Message206Data } from './schemas/message-206';
+export { message200Schema, message200DataSchema } from './schemas/message-200';
+export type { Message200Data } from './schemas/message-200';
 export type { MappingSchema, FieldMapping, CreateMessageOptions } from './types';
 export { SchemaError, MappingError, ValidationError } from './types';
 

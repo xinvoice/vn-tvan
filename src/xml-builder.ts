@@ -34,7 +34,9 @@ function buildField(field: FieldMapping, data: unknown, opts: ConvertOptions, de
 
   // Object field: resolve object, recurse into children
   if (field.children) {
-    const nested = opts.strict ? resolveRequired(data, field.from, field.to) : resolvePath(data, field.from) ?? {};
+    const raw = resolvePath(data, field.from);
+    if (field.omitIfEmpty && (raw === undefined || raw === null)) return '';
+    const nested = opts.strict ? resolveRequired(data, field.from, field.to) : raw ?? {};
     const children = buildFields(field.children, nested, opts, depth + 1);
     return `${pad}<${field.to}>\n${children}${pad}</${field.to}>\n`;
   }
@@ -49,6 +51,7 @@ function buildField(field: FieldMapping, data: unknown, opts: ConvertOptions, de
   const value = opts.strict ? resolveRequired(data, field.from, field.to) : resolvePath(data, field.from);
 
   if (value === undefined || value === null) {
+    if (field.omitIfEmpty) return '';
     return `${pad}<${field.to}/>\n`;
   }
   return `${pad}<${field.to}>${String(value)}</${field.to}>\n`;

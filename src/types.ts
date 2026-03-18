@@ -10,6 +10,7 @@ type LeafField = {
   from: string | null; // JSON path (null = static/empty element)
   to: string; // XML element name
   value?: string; // static value override (used when from: null)
+  omitIfEmpty?: true; // skip tag when value is undefined/null
   children?: never;
   array?: never;
 };
@@ -19,6 +20,7 @@ type ObjectField = {
   from: string;
   to: string;
   children: FieldMapping[];
+  omitIfEmpty?: true; // skip wrapper when resolved object is absent
   array?: never;
 };
 
