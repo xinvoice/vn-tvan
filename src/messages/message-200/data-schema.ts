@@ -91,6 +91,7 @@ const generalInfoSchema = z.object({
   invoiceNumber: z.number().int().positive().optional(),
   invoiceDate: isoDateSchema,
   financialLeaseFlag: z.number().int().min(0).max(1),
+  freeTradeZoneFlag: z.number().int().min(0).max(1).optional(),
   currency: z.string().min(1).max(3),
   paymentMethod: z.string().min(1),
   solutionProviderTaxId: taxIdSchema,
@@ -114,22 +115,8 @@ const invoiceSchema = z.object({
   qrCodeData: z.string().min(1).optional(),
 });
 
-const messageHeaderSchema = z.object({
-  version: z.string().min(1),
-  senderCode: z.string().min(1),
-  receiverCode: z.string().min(1),
-  messageType: z.literal(200),
-  messageId: z.string().min(1),
-  messageRefId: z.string().min(1),
-  taxId: taxIdSchema,
-  quantity: z.literal(1),
-});
-
 export const message200DataSchema = z.object({
-  messageHeader: messageHeaderSchema,
-  data: z.object({
-    invoice: invoiceSchema,
-  }),
+  invoice: invoiceSchema,
 });
 
 export type Message200Data = z.infer<typeof message200DataSchema>;
